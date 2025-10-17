@@ -52,7 +52,6 @@ docker compose exec app php artisan db:seed-translations
 ```bash
 APP_NAME=DigitalTolk
 APP_URL=http://localhost
-APP_KEY=base64:Z91+H4rUZqOz28FEMiXQrOQoJAQ/+OGUb9c3kRENqXQ=
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
