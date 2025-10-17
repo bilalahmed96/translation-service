@@ -1,0 +1,260 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Translation Management API",
+        "description": "Scalable API for managing translations and exporting locales",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1",
+            "description": "Local Development Server"
+        },
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "paths": {
+        "/export/{locale}": {
+            "get": {
+                "tags": [
+                    "Export"
+                ],
+                "summary": "Export all translations for a locale",
+                "operationId": "74f093ac01ae02cca4141079e0cc6888",
+                "parameters": [
+                    {
+                        "name": "locale",
+                        "in": "path",
+                        "description": "Locale code (e.g. en, fr, de)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "JSON export of translations"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/translations": {
+            "get": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "List all translations",
+                "operationId": "dafa208e862d8826463c5fe3a11818f6",
+                "responses": {
+                    "200": {
+                        "description": "List of translations"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Create or update a translation",
+                "operationId": "90ebb767d4793fa9dfe6e9462808e8a7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tkey",
+                                    "locale",
+                                    "content"
+                                ],
+                                "properties": {
+                                    "tkey": {
+                                        "type": "string",
+                                        "example": "home.title"
+                                    },
+                                    "locale": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Welcome!"
+                                    },
+                                    "tags": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "example": "web"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/translations/search": {
+            "get": {
+                "tags": [
+                    "Translations"
+                ],
+                "summary": "Search translations by tag, locale, key, namespace or content",
+                "description": "Fetch filtered translations based on provided search parameters such as tag, locale, tkey, namespace, or query text.",
+                "operationId": "searchTranslations",
+                "parameters": [
+                    {
+                        "name": "tag",
+                        "in": "query",
+                        "description": "Filter by tag (e.g. web, api, mobile)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "web"
+                        }
+                    },
+                    {
+                        "name": "locale",
+                        "in": "query",
+                        "description": "Filter by locale code (e.g. en, fr, es)",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "en"
+                        }
+                    },
+                    {
+                        "name": "tkey",
+                        "in": "query",
+                        "description": "Filter by translation key",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "home.title"
+                        }
+                    },
+                    {
+                        "name": "namespace",
+                        "in": "query",
+                        "description": "Filter by namespace",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "frontend"
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Search within translation content",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "Welcome"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of translations matching the filters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "content": {
+                                                "type": "string",
+                                                "example": "Welcome to the site"
+                                            },
+                                            "locale": {
+                                                "properties": {
+                                                    "code": {
+                                                        "type": "string",
+                                                        "example": "en"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "translation_key": {
+                                                "properties": {
+                                                    "tkey": {
+                                                        "type": "string",
+                                                        "example": "home.title"
+                                                    },
+                                                    "namespace": {
+                                                        "type": "string",
+                                                        "example": "frontend"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized (invalid or missing token)"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Export",
+            "description": "Export"
+        },
+        {
+            "name": "Translations",
+            "description": "Translations"
+        }
+    ]
+}
