@@ -58,7 +58,7 @@ DB_PORT=3306
 DB_DATABASE=translation_service
 DB_USERNAME=root
 DB_PASSWORD=
-API_TOKEN=2Cd8mFEdMV3Vy9JpswmMrOtmwOLx93jOHd2XZari3X9KAx7e8Ijk6h4ywQEMachu
+API_TOKEN=2Cd8mFEdMV3Vy9JpswmMrOtmwOLx93jOHd2XZari3X9KAx7e8Ijk6h4ywQEMachu //just for testing
 ```
 ---
 
