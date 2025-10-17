@@ -1,6 +1,6 @@
 # Translation Management Service (Laravel 11)
 
-Translation Management API built on **Laravel 11** — fast, secure, and scalable.  
+Translation Management API built on **Laravel 11** fast, secure, and scalable.  
 Designed to handle large multilingual datasets (100k+ records) with low latency JSON export for web and mobile clients.
 
 ---
@@ -16,7 +16,7 @@ Designed to handle large multilingual datasets (100k+ records) with low latency 
 - Follows PSR-12 + SOLID principles
 - Unit, feature, and performance tests (>95% coverage)
 - Docker support
-- Swagger (OpenAPI) docs
+- Swagger API docs
 
 ---
 
@@ -29,7 +29,7 @@ Designed to handle large multilingual datasets (100k+ records) with low latency 
 | Cache | Redis |
 | Container | Docker / Docker Compose |
 | Testing | PHPUnit |
-| Docs | Swagger / OpenAPI 3.0 |
+| Docs | Swagger API |
 
 ---
 
@@ -49,6 +49,7 @@ docker compose exec app php artisan migrate
 docker compose exec app php artisan db:seed-translations
 ```
 ## ENV
+```bash
 APP_NAME=DigitalTolk
 APP_URL=http://localhost
 APP_KEY=base64:Z91+H4rUZqOz28FEMiXQrOQoJAQ/+OGUb9c3kRENqXQ=
@@ -59,21 +60,16 @@ DB_DATABASE=translation_service
 DB_USERNAME=root
 DB_PASSWORD=
 API_TOKEN=2Cd8mFEdMV3Vy9JpswmMrOtmwOLx93jOHd2XZari3X9KAx7e8Ijk6h4ywQEMachu
-
+```
 ---
 
-## TESTING
-# All tests
+# TESTING
+## All tests
+``` bash
 php artisan test
+```
 
-# Specific suite
-php artisan test --testsuite=Feature
-php artisan test --testsuite=Unit
-
-# Performance benchmark
-php artisan test:performance
-
-# Coverage report
+## Coverage report
 ``` bash
 php artisan test --coverage-html=coverage/
 ```
@@ -84,6 +80,6 @@ php artisan l5-swagger:generate
 http://localhost:8000/api/documentation
 ```
 
-## Author
-# Bilal Ahmed
-# Senior Full Stack Developer
+# Author
+## Bilal Ahmed
+## Senior Full Stack Developer
